@@ -351,17 +351,12 @@ inline double getHubberMonoWeight(double SqErr,double Information){
     bool MarkerPoseTracker::estimatePose(Marker& m, const CameraParameters& _cam_params, float _msize,
                                          float minerrorRatio)
     {
-        if (_rvec.empty())
+	if (_rvec.empty())
         {  // if no previous data, use from scratch
             cv::Mat rv, tv;
             auto solutions =  solvePnP_(Marker::get3DPoints(_msize), m, _cam_params.CameraMatrix, _cam_params.Distorsion);
             double errorRatio = solutions[1].second / solutions[0].second;
             if (errorRatio < minerrorRatio)
-                return false;  // is te error ratio big enough
-//            cv::solvePnP(Marker::get3DPoints(_msize), m, _cam_params.CameraMatrix, _cam_params.Distorsion, rv, tv);
-            //__aruco_solve_pnp(Marker::get3DPoints(_msize), m, _cam_params.CameraMatrix, _cam_params.Distorsion, _rvec,  _tvec);
-//            rv.convertTo(_rvec, CV_32F);
-//            tv.convertTo(_tvec, CV_32F);
             aruco_private::impl__aruco_getRTfromMatrix44(solutions[0].first, _rvec, _tvec);
         }
         else
@@ -371,6 +366,8 @@ inline double getHubberMonoWeight(double SqErr,double Information){
 
         _rvec.convertTo(m.Rvec,CV_32F);
         _tvec.convertTo(m.Tvec,CV_32F);
+	_rvec.convertTo(_rvec,CV_32F);
+        _tvec.convertTo(_tvec,CV_32F);
         m.ssize = _msize;
         return true;
     }
@@ -541,6 +538,9 @@ inline double getHubberMonoWeight(double SqErr,double Information){
                     return false;
                 }
             }
+
+	    _rvec.convertTo(_rvec,CV_32F);
+            _tvec.convertTo(_tvec,CV_32F);
             return true;
         }
     }

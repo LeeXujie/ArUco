@@ -366,6 +366,8 @@ inline double getHubberMonoWeight(double SqErr,double Information){
 
         _rvec.convertTo(m.Rvec,CV_32F);
         _tvec.convertTo(m.Tvec,CV_32F);
+	_rvec.convertTo(_rvec,CV_32F);
+        _tvec.convertTo(_tvec,CV_32F);
         m.ssize = _msize;
         return true;
     }
@@ -536,6 +538,9 @@ inline double getHubberMonoWeight(double SqErr,double Information){
                     return false;
                 }
             }
+
+	    _rvec.convertTo(_rvec,CV_32F);
+            _tvec.convertTo(_tvec,CV_32F);
             return true;
         }
     }
