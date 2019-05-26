@@ -1,0 +1,10 @@
+
+files=           markerdetector_impl.cpp dictionary_based.cpp
+keepnames=        markerdetector_impl.cpp dictionary_based.cpp dictionary_based.h
+files-explicit=   markerdetector_impl.h dictionary_based.h
+removeLinesWithCommands=__ARUCO_ADDTIMER__ __ARUCO_TIMER_EVENT__ _debug_msg assert _debug_exec
+args=
+-Wall -std=c++11  -O3 -g0  -DNDEBUG -fPIC
+-I${OPENCV_INCLUDEDIR}  -I${EIGEN_INCLUDEDIR} 
+
+ 
